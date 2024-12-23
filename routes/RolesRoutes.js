@@ -45,7 +45,6 @@ router.put('/edit/:id', authenticateAndAuthorizeStr("Administrador"), async (req
 
 router.get('/all', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
     try {
-        // Consulta para obtener todos los roles
         const result = await sequelize.query(
             'SELECT * FROM Roles', 
             { 

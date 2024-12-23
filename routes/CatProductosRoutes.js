@@ -8,7 +8,7 @@ router.post('/add', authenticateAndAuthorizeStr("Administrador"), async (req, re
 
     try {
         
-        const result = await sequelize.query('EXEC sp_insertarCategoriaProducto :usuarios_idUsuario, :nombre, :estados_idEstado', 
+        const result = await sequelize.query('EXEC sp_insertarCategoriaProductos :usuarios_idUsuario, :nombre, :estados_idEstado', 
             { 
                 replacements: { 
                     usuarios_idUsuario, 
@@ -32,7 +32,7 @@ router.put('/edit/:idCategoriaProducto', authenticateAndAuthorizeStr("Administra
 
     try {
         
-        const result = await sequelize.query('EXEC sp_editarCategoriaProducto :idCategoriaProducto, :usuarios_idUsuario, :nombre, :estados_idEstado', 
+        const result = await sequelize.query('EXEC sp_editarCategoriaProductos :idCategoriaProducto, :usuarios_idUsuario, :nombre, :estados_idEstado', 
             { 
                 replacements: { 
                     idCategoriaProducto, 

@@ -72,7 +72,7 @@ router.put('/edit/:id', authenticateAndAuthorizeStr("Administrador"), async (req
 
     try {
         const result = await sequelize.query(
-            'EXECUTE [dbo].[sp_editarOrdenes] ' +
+            'EXECUTE sp_editarOrdenes' +
             '@idOrden = :id, ' +
             '@usuarios_idUsuario = :usuarios_idUsuario, ' +
             '@estados_idEstado = :estados_idEstado, ' +

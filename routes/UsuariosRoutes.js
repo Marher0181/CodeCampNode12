@@ -3,12 +3,12 @@ const sequelize = require('../db/db');
 const authenticateAndAuthorizeStr = require('../middlewares/auth');
 const router = express.Router();
 
-router.post('/add', authenticateAndAuthorizeStr("Admin"), async (req, res) => {
+router.post('/add', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
     const { rol_idRol, estados_idEstado, correo_electronico, nombre_completo, password, telefono, fecha_nacimiento, Clientes_idCliente } = req.body;
 
     try {
         
-        const result = await sequelize.query('EXEC sp_insertarUsuario :rol_idRol, :estados_idEstado, :correo_electronico, :nombre_completo, :password, :telefono, :fecha_nacimiento, :Clientes_idCliente', 
+        const result = await sequelize.query('EXEC sp_insertarUsuarios :rol_idRol, :estados_idEstado, :correo_electronico, :nombre_completo, :password, :telefono, :fecha_nacimiento, :Clientes_idCliente', 
             { 
                 replacements: { 
                     rol_idRol, 
@@ -31,13 +31,13 @@ router.post('/add', authenticateAndAuthorizeStr("Admin"), async (req, res) => {
     }
 });
 
-router.put('/edit/:idUsuario', authenticateAndAuthorizeStr("Admin"), async (req, res) => {
+router.put('/edit/:idUsuario', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
     const { idUsuario } = req.params;
     const { rol_idRol, estados_idEstado, correo_electronico, nombre_completo, password, telefono, fecha_nacimiento, Clientes_idCliente } = req.body;
 
     try {
         
-        const result = await sequelize.query('EXEC sp_editarUsuario :idUsuario, :rol_idRol, :estados_idEstado, :correo_electronico, :nombre_completo, :password, :telefono, :fecha_nacimiento, :Clientes_idCliente', 
+        const result = await sequelize.query('EXEC sp_editarUsuarios :idUsuario, :rol_idRol, :estados_idEstado, :correo_electronico, :nombre_completo, :password, :telefono, :fecha_nacimiento, :Clientes_idCliente', 
             { 
                 replacements: { 
                     idUsuario, 

@@ -7,7 +7,7 @@ router.post('/add', authenticateAndAuthorizeStr("Administrador"), async (req, re
     const { razon_social, nombre_comercial, direccion_entrega, telefono, email } = req.body;
 
     try {
-        const result = await sequelize.query('EXEC sp_insertarCliente :razon_social, :nombre_comercial, :direccion_entrega, :telefono, :email', 
+        const result = await sequelize.query('EXEC sp_insertarClientes :razon_social, :nombre_comercial, :direccion_entrega, :telefono, :email', 
             { 
                 replacements: { 
                     razon_social, 
@@ -32,7 +32,7 @@ router.put('/edit/:idCliente', authenticateAndAuthorizeStr("Administrador"), asy
     const { razon_social, nombre_comercial, direccion_entrega, telefono, email } = req.body;
 
     try {
-        const result = await sequelize.query('EXEC sp_editarCliente :idCliente, :razon_social, :nombre_comercial, :direccion_entrega, :telefono, :email', 
+        const result = await sequelize.query('EXEC sp_editarClientes :idCliente, :razon_social, :nombre_comercial, :direccion_entrega, :telefono, :email', 
             { 
                 replacements: { 
                     idCliente, 

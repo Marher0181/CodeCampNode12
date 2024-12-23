@@ -61,4 +61,24 @@ router.put('/edit/:idUsuario', authenticateAndAuthorizeStr("Administrador"), asy
     }
 });
 
+router.get('/all', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
+    try {
+        const result = await sequelize.query(
+            'SELECT * FROM Usuarios', 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({
+            message: 'Usuarios obtenidos satisfactoriamente',
+            result
+        });
+    } catch (err) {
+        console.log('Error al obtener usuarios: ', err);
+        res.status(500).json({ message: 'Error al obtener usuarios: ', err });
+    }
+});
+
+
 module.exports = router;

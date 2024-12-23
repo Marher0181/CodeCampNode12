@@ -53,5 +53,20 @@ router.put('/edit/:idCliente', authenticateAndAuthorizeStr("Administrador"), asy
     }
 });
 
+router.get('/all', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
+    try {
+        const result = await sequelize.query(
+            'SELECT * FROM Clientes', 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({ message: 'Clientes obtenidos satisfactoriamente', result });
+    } catch (err) {
+        console.log('Error al obtener clientes: ', err);
+        res.status(500).json({ message: 'Error al obtener clientes: ', err });
+    }
+});
 
 module.exports = router;

@@ -51,5 +51,19 @@ router.put('/edit/:idCategoriaProducto', authenticateAndAuthorizeStr("Administra
     }
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const result = await sequelize.query('SELECT * FROM CategoriaProductos', 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({ message: 'Categorías de productos obtenidas satisfactoriamente', result });
+    } catch (err) {
+        console.log('Error al obtener categorías de productos: ', err);
+        res.status(500).json({ message: 'Error al obtener categorías de productos: ', err });
+    }
+});
 
 module.exports = router;

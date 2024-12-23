@@ -81,4 +81,27 @@ router.put('/edit/:idProducto', authenticateAndAuthorizeStr("Administrador"), as
     }
 });
 
+router.get('/all', async (req, res) => {
+    try {
+        const result = await sequelize.query(
+            `SELECT p.*, c.nombre AS categoria, e.nombre AS estado, u.nombre_completo AS usuario
+             FROM Productos p
+             LEFT JOIN CategoriaProductos c ON p.CategoriaProductos_idCategoriaProducto = c.idCategoriaProducto
+             LEFT JOIN Estados e ON p.estados_idEstado = e.idEstado
+             LEFT JOIN Usuarios u ON p.usuarios_idUsuario = u.idUsuario`, 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({
+            message: 'Productos obtenidos satisfactoriamente',
+            result
+        });
+    } catch (err) {
+        console.log('Error al obtener productos: ', err);
+        res.status(500).json({ message: 'Error al obtener productos: ', err });
+    }
+});
+
 module.exports = router;

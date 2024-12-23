@@ -43,5 +43,20 @@ router.put('/edit/:id', authenticateAndAuthorizeStr("Administrador"), async (req
     }
 });
 
+router.get('/all', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
+    try {
+        const result = await sequelize.query(
+            'SELECT * FROM Estados', 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({ message: 'Estados obtenidos satisfactoriamente', result });
+    } catch (err) {
+        console.log('Error al obtener estados: ', err);
+        res.status(500).json({ message: 'Error al obtener estados: ', err });
+    }
+});
 
 module.exports = router;

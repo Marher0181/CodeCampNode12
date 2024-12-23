@@ -108,5 +108,21 @@ router.put('/edit/:id', authenticateAndAuthorizeStr("Administrador"), async (req
     }
 });
 
+router.get('/all', authenticateAndAuthorizeStr("Administrador"), async (req, res) => {
+    try {
+        const result = await sequelize.query(
+            'SELECT * FROM Ordenes', 
+            { 
+                type: sequelize.QueryTypes.SELECT
+            }
+        );
+
+        res.status(200).json({ message: 'Órdenes obtenidas satisfactoriamente', result });
+    } catch (err) {
+        console.log('Error al obtener órdenes: ', err);
+        res.status(500).json({ message: 'Error al obtener órdenes: ', err });
+    }
+});
+
 
 module.exports = router;
